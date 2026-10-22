@@ -16,10 +16,10 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
 
     Route::resource('projects', ProjectController::class)
-        ->only(['index']);
+        ->only(['index', 'show']);
 
-    Route::get('/projects/{project}/tasks', [TaskController::class, 'index'])
-    ->name('projects.tasks.index');
+    Route::resource('projects.tasks', TaskController::class)
+    ->only(['index']);
 });
 
 require __DIR__.'/settings.php';

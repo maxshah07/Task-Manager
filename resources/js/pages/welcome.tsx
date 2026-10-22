@@ -1,5 +1,5 @@
 import { type SharedData } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
@@ -12,6 +12,11 @@ export default function Welcome() {
             </Head>
             <div className="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a]">
                 <div className="text-white">Hello, World!</div>
+                <ul>
+                    <li>
+                        <Link href={route('projects.index')}>Dashboard</Link>
+                    </li>
+                </ul>
             </div>
         </>
     );

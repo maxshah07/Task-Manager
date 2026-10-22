@@ -1,12 +1,9 @@
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
-
-type Project = {
-    id: number;
-    title: string;
-    description: string | null;
-    status: 'upcoming' | 'in_progress' | 'complete';
-};
+import { ArrowRight } from 'lucide-react';
+import { Project } from './Project';
 
 type Props = {
     projects: Project[];
@@ -25,14 +22,20 @@ export default function Index({ projects }: Props) {
                 ) : (
                     <ul className="space-y-3">
                         {projects.map((project) => (
-                            <li key={project.id} className="space-y-2 rounded-lg border p-4">
-                                <h2 className="font-semibold">{project.title}</h2>
-
-                                {project.description && <p>{project.description}</p>}
-
-                                <p className="text-sm">Status: {project.status}</p>
-
-                                <Link href={route('projects.tasks.index', { project: project.id })}>View tasks</Link>
+                            <li key={project.id} className="flex flex-col gap-4 space-y-2 rounded-lg border p-4">
+                                <div className="flex items-center justify-between">
+                                    <h2 className="font-semibold">{project.title}</h2>
+                                    <Badge className="text-sm">{project.status}</Badge>
+                                </div>
+                                <div className={`flex ${project.description ? 'justify-between' : 'justify-end'}`}>
+                                    {project.description && <p>{project.description}</p>}
+                                    <Link href={route('projects.show', { project: project.id })}>
+                                        <Button className="flex items-center gap-2 rounded-lg">
+                                            View project
+                                            <ArrowRight stroke-width="1" />
+                                        </Button>
+                                    </Link>
+                                </div>
                             </li>
                         ))}
                     </ul>
